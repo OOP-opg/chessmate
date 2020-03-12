@@ -1,2 +1,2 @@
 *.re linguist-language=Reason
-index.js linguist-generated
+static/bundle/* linguist-generated
