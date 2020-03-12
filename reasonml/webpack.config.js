@@ -8,7 +8,7 @@ module.exports = {
   // you didn't know this
   mode: 'production',
   output: {
-    path: path.join(__dirname, "bundle"),
+    path: path.join(__dirname, "../static/bundle"),
     filename: 'index.js',
   },
 };

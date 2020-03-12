@@ -3,11 +3,16 @@
 #[macro_use]
 extern crate rocket;
 
+use rocket_contrib::serve::StaticFiles;
+
 #[get("/")]
 fn world() -> &'static str {
     "Hello, world"
 }
 
 fn main() {
-    rocket::ignite().mount("/", routes![world]).launch();
+    rocket::ignite()
+        .mount("/hello", routes![world])
+        .mount("/", StaticFiles::from("./static"))
+        .launch();
 }
