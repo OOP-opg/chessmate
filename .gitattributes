@@ -1,2 +1,2 @@
-*.re linguist-language=Reason
+**/*.re linguist-language=Java
 static/bundle/* linguist-generated
