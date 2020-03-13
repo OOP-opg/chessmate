@@ -1,18 +1,25 @@
 #![feature(proc_macro_hygiene, decl_macro)]
+use structopt::StructOpt;
 
-#[macro_use]
-extern crate rocket;
+mod web;
 
-use rocket_contrib::serve::StaticFiles;
+#[derive(StructOpt)]
+#[structopt(name="chessmate")]
+struct Opt {
+    /// Should app use web server or not
+    #[structopt(short, long)]
+    server: bool,
+}
 
-#[get("/")]
-fn world() -> &'static str {
-    "Hello, world"
+fn run_cli() {
+    println!("Command line use")
 }
 
 fn main() {
-    rocket::ignite()
-        .mount("/hello", routes![world])
-        .mount("/", StaticFiles::from("./static"))
-        .launch();
+    let opt = Opt::from_args();
+    if opt.server {
+        web::run_server()
+    } else {
+        run_cli()
+    }
 }
