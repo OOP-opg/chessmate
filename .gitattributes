@@ -1,2 +1,3 @@
 **/*.re linguist-language=Java
 **/bundle/**/* linguist-generated
+**/webpack.config.js type=data
