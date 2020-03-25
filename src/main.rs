@@ -1,11 +1,11 @@
 #![feature(proc_macro_hygiene, decl_macro)]
+use chess_engine::Board;
 use structopt::StructOpt;
-use chess_engine::{Board};
 
 mod web;
 
 #[derive(StructOpt)]
-#[structopt(name="chessmate")]
+#[structopt(name = "chessmate")]
 struct Opt {
     /// Should app use web server or not
     #[structopt(short, long)]

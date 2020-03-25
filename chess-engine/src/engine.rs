@@ -1,5 +1,5 @@
-use wasm_bindgen::prelude::*;
 use chess_macros::chess_board;
+use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 #[repr(u8)]
@@ -29,7 +29,6 @@ pub struct Piece {
     side: Side,
 }
 
-
 #[wasm_bindgen]
 #[derive(Debug)]
 pub struct Phigure {
@@ -49,7 +48,6 @@ pub struct Game {
     current_board: Board,
     current_side: Side,
 }
-
 
 //const fn get_index(letter: char, num: u8) -> u8 {
 //    (letter as u8 - 'a' as u8) * 8 + num

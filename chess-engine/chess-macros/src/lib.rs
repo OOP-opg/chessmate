@@ -52,7 +52,7 @@ fn build_square(number: usize, piece: TokenTree) -> String {
             }},
             position: {position},
         }}
-        ", 
+        ",
         kind = kind,
         side = side,
         position = number

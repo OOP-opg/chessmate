@@ -1,5 +1,5 @@
-use rocket_contrib::serve::StaticFiles;
 use rocket;
+use rocket_contrib::serve::StaticFiles;
 
 #[rocket::get("/")]
 fn world() -> &'static str {
