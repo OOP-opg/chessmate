@@ -1,5 +1,6 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 use structopt::StructOpt;
+use chess_engine::{Board};
 
 mod web;
 
@@ -12,14 +13,16 @@ struct Opt {
 }
 
 fn run_cli() {
-    println!("Command line use")
+    println!("Command line use");
+    let board = Board::default().to_string();
+    println!("{}", board);
 }
 
 fn main() {
     let opt = Opt::from_args();
     if opt.server {
-        web::run_server()
+        web::run_server();
     } else {
-        run_cli()
+        run_cli();
     }
 }

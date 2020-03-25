@@ -1,0 +1,22 @@
+Game:
+    - current board: Board
+    - current player: Player
+Board:
+    - squares: Set<Square>
+Square:
+    - piece: Option<Piece>
+    - letter: char
+    - num: u8
+Piece:
+    | Pawn
+    | Bishop
+    | Knight
+    | Rook
+    | Queen
+    |  King
+Move:
+    - src: Square
+    - dest: Square
+Side:
+    | White
+    | Black

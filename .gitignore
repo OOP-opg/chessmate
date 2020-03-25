@@ -1,4 +1,6 @@
-/target
+**/target
+/chess-engine/Cargo.lock
+/chess-engine/chess-macros/Cargo.lock
 /reasonml/node_modules/**/*
 /reasonml/package-lock.json
 /reasonml/lib/**/*
