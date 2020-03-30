@@ -14,6 +14,7 @@ pub enum Kind {
 }
 
 #[wasm_bindgen]
+#[repr(u8)]
 #[derive(Debug)]
 pub enum Side {
     White,
@@ -27,17 +28,10 @@ pub struct Piece {
     side: Side,
 }
 
-//#[wasm_bindgen]
-//#[derive(Debug)]
-//pub struct Phigure {
-    //piece: Piece,
-    //position: u8,
-//}
-
 #[derive(Debug)]
 pub enum Square {
     Piece(Piece),
-    Empty
+    Empty,
 }
 
 #[wasm_bindgen]
@@ -52,16 +46,6 @@ pub struct Game {
     current_board: Board,
     current_side: Side,
 }
-
-//const fn get_index(letter: char, num: u8) -> u8 {
-//    (letter as u8 - 'a' as u8) * 8 + num
-//}
-
-//macro_rules! square {
-//    ([$a:expr, $i:expr] => $p:ident) => (Square {
-//        piece: Piece::$p, index: get_index($a, $i)
-//    });
-//}
 
 #[wasm_bindgen]
 impl Board {
@@ -82,6 +66,7 @@ impl Board {
     }
 }
 
+#[wasm_bindgen]
 impl Game {
     pub fn new() -> Game {
         Game {
