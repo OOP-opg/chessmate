@@ -11,13 +11,11 @@ pub enum Kind {
     Rook,
     Queen,
     King,
-    Empty,
 }
 
 #[wasm_bindgen]
 #[derive(Debug)]
 pub enum Side {
-    Empty,
     White,
     Black,
 }
@@ -29,17 +27,23 @@ pub struct Piece {
     side: Side,
 }
 
-#[wasm_bindgen]
+//#[wasm_bindgen]
+//#[derive(Debug)]
+//pub struct Phigure {
+    //piece: Piece,
+    //position: u8,
+//}
+
 #[derive(Debug)]
-pub struct Phigure {
-    piece: Piece,
-    position: u8,
+pub enum Square {
+    Piece(Piece),
+    Empty
 }
 
 #[wasm_bindgen]
 #[derive(Debug)]
 pub struct Board {
-    board: Vec<Phigure>,
+    squares: Vec<Square>,
 }
 
 #[wasm_bindgen]
@@ -75,5 +79,14 @@ impl Board {
     }
     pub fn to_string(&self) -> String {
         format!("Zaebis: {:?}", &self)
+    }
+}
+
+impl Game {
+    pub fn new() -> Game {
+        Game {
+            current_board: Board::default(),
+            current_side: Side::White,
+        }
     }
 }

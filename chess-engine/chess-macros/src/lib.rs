@@ -1,20 +1,20 @@
 use proc_macro::{TokenStream, TokenTree};
 
-fn match_symbol(symbol: char) -> (&'static str, &'static str) {
-    let (kind, side) = match symbol {
-        'P' => ("Pawn", "White"),
-        'p' => ("Pawn", "Black"),
-        'B' => ("Bishop", "White"),
-        'b' => ("Bishop", "Black"),
-        'K' => ("Knight", "White"),
-        'k' => ("Knight", "Black"),
-        'R' => ("Rook", "White"),
-        'r' => ("Rook", "Black"),
-        'Q' => ("Queen", "White"),
-        'q' => ("Queen", "Black"),
-        'U' => ("King", "White"),
-        'u' => ("King", "Black"),
-        '_' => ("Empty", "Empty"),
+fn match_symbol(symbol: char) -> Option<(&'static str, &'static str)> {
+    match symbol {
+        'P' => Some(("Pawn", "White")),
+        'p' => Some(("Pawn", "Black")),
+        'B' => Some(("Bishop", "White")),
+        'b' => Some(("Bishop", "Black")),
+        'K' => Some(("Knight", "White")),
+        'k' => Some(("Knight", "Black")),
+        'R' => Some(("Rook", "White")),
+        'r' => Some(("Rook", "Black")),
+        'Q' => Some(("Queen", "White")),
+        'q' => Some(("Queen", "Black")),
+        'U' => Some(("King", "White")),
+        'u' => Some(("King", "Black")),
+        '_' => None,
         err @ _ => panic!(format!(
             "
             Unexpected token: {err}
@@ -29,8 +29,7 @@ fn match_symbol(symbol: char) -> (&'static str, &'static str) {
             ",
             err = err
         )),
-    };
-    (kind, side)
+    }
 }
 
 fn build_square(number: usize, piece: TokenTree) -> String {
@@ -42,21 +41,22 @@ fn build_square(number: usize, piece: TokenTree) -> String {
     } else {
         panic!("Unable to get first character of identifier")
     };
-    let (kind, side) = match_symbol(symbol);
-    format!(
-        "
-        Phigure {{
-            piece: Piece {{
-                kind: Kind::{kind}, 
-                side: Side::{side}, 
-            }},
-            position: {position},
-        }}
-        ",
-        kind = kind,
-        side = side,
-        position = number
-    )
+    let piece = match_symbol(symbol);
+    match piece {
+        Some((kind, side)) => format!(
+            "
+            Square::Piece(
+                Piece {{
+                    kind: Kind::{kind}, 
+                    side: Side::{side}, 
+                }}
+            )
+            ",
+            kind = kind,
+            side = side,
+        ),
+        None => String::from("Square::Empty"),
+    }
 }
 
 #[proc_macro]
@@ -68,7 +68,7 @@ pub fn chess_board(items: TokenStream) -> TokenStream {
         .collect::<Vec<String>>()
         .join(",");
 
-    format!("Board {{ board: vec![{}] }}", content)
-        .parse::<TokenStream>()
-        .unwrap()
+    let board = format!("Board {{ squares: vec![{}] }}", content);
+
+    board.parse::<TokenStream>().unwrap()
 }
