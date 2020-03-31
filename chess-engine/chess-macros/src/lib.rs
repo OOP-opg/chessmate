@@ -45,7 +45,7 @@ fn build_square(number: usize, piece: TokenTree) -> String {
     match piece {
         Some((kind, side)) => format!(
             "
-            Square::Piece(
+            Some(
                 Piece {{
                     kind: Kind::{kind}, 
                     side: Side::{side}, 
@@ -55,7 +55,7 @@ fn build_square(number: usize, piece: TokenTree) -> String {
             kind = kind,
             side = side,
         ),
-        None => String::from("Square::Empty"),
+        None => String::from("None"),
     }
 }
 

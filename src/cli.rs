@@ -1,7 +1,7 @@
-use chess_engine::Board;
+use chess_engine::Game;
 
 pub fn run_cli() {
     println!("Command line use");
-    let board = Board::default().to_string();
-    println!("{}", board);
+    let game = Game::new();
+    println!("{}", game.current_board);
 }
